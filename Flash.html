@@ -1,0 +1,65 @@
+<button id="timerButton" onclick="startTimer()">타이머 시작</button>
+
+<div id="timer"></div>
+
+<style>
+#timerButton {
+  width: 400px;
+  height: 300px;
+  font-size: 20px;
+  line-height: 1.5em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#timerButton > div {
+  margin-top: 10px;
+}
+</style>
+
+<script>
+var countDownDate = 300000; // 초기값: 4분 55초 후에 타이머 종료
+var button = document.getElementById("timerButton");
+
+function startTimer() {
+  countDownDate = new Date().getTime() + countDownDate;
+  
+  var intervalId = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var distance1 = (countDownDate - now)-31000;
+    var distance2 = (countDownDate - now)-47000;
+    var distance3 = (countDownDate - now)-71000;
+    
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    var minutes1 = Math.floor((distance1 % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds1 = Math.floor((distance1 % (1000 * 60)) / 1000);
+
+    var minutes2 = Math.floor((distance2 % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds2 = Math.floor((distance2 % (1000 * 60)) / 1000);
+
+    var minutes3 = Math.floor((distance3 % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds3 = Math.floor((distance3 % (1000 * 60)) / 1000);
+    
+    button.innerHTML = "전체 타이머: " + minutes + "분 " + seconds + "초";
+    button.innerHTML += "<div>(아이오니아): " + minutes1 + "분 " + seconds1 + "초</div>";
+    button.innerHTML += "<div>(우주적 통찰력): " + minutes2 + "분 " + seconds2 + "초</div>";
+    button.innerHTML += "<div>(아이오니아 + 우주적 통찰력): " + minutes3 + "분 " + seconds3 + "초</div>";
+
+
+    if (distance < 0) {
+      clearInterval(intervalId);
+      button.innerHTML = "타이머 종료!";
+      button.onclick = startTimer;
+    }
+  }, 1000);
+
+  button.onclick = null; // 버튼 클릭 이벤트 제거
+}
+
+</script>
